@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Tarjeta</title>
+</head>
+
+<body>
+  <div id="header">
+    <div class="card">
+      <div class="blanco">
+        <div class="circle"></div>
+      </div>
+      <div class="info">
+        <img id="avatar" alt="">
+        <p>Nombre y apellido:</p>
+        <h1 id="name"></h1>
+        <h3 id="last-name"></h3>
+        <p>Numero de contacto:</p>
+        <strong class="phone"></strong>
+        <p>Genero:</p>
+        <strong class="gender"></strong>
+        <p>Correo electronico:</p>
+        <strong class="email"></strong>
+        <p>Ubicacion</p>
+        <a href="" id="ubication" target="_self">Ver ubicacion en google maps</a>
+
+
+      </div>
+    </div>
+  </div>
+</body>
+
+<script>
+
+  const datosGuardados = localStorage.getItem("usuarioSeleccionado");
+  const link = document.querySelector("#ubication");
+
+  if (datosGuardados) {
+    const usuario = JSON.parse(datosGuardados);
+    const lat = usuario.location.coordinates.latitude;
+    const lon = usuario.location.coordinates.longitude;
+    // imagen foto de perfil
+    document.querySelector("#avatar").src = usuario.picture.large;
+    // nombre del usurio
+    document.querySelector("#name").textContent = usuario.name.first;
+    // apellido del usuario
+    document.querySelector("#last-name").textContent = usuario.name.last;
+    // numero de contacto
+    document.querySelector(".phone").textContent = usuario.cell;
+    // genero del usuario
+    document.querySelector(".gender").textContent = usuario.gender;
+    // direccion electronica
+    document.querySelector(".email").textContent = usuario.email;
+    // ubicacion
+    link.href = `https://www.google.com/earth?q=${lat},${lon}`;
+    link.target = "_blank";
+
+
+    console.log(usuario)
+
+  }
+</script>
+
+</html>
